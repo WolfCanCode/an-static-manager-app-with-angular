@@ -792,7 +792,6 @@ display:none;
     overflow-x: hidden;
     background: rgba(255,255,255,0.8);
     transition: all 1s;
-    left:-35%;
 }
 
 .sidebar-right
