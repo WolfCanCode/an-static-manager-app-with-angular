@@ -39,8 +39,8 @@
     <script src="assets/plugins/calendar/moment.min.js"></script>
     <script src="assets/plugins/toastr/toastr.min.js"></script>
     <script src="assets/plugins/ui/jquery-ui.js"></script>
-    
-    
+
+
     <!-- PAGE LEVEL SCRIPTS -->
 
 </head>
@@ -56,8 +56,7 @@
                     padding-left: 15px !important;
                 }
 
-                .sidebar
-                {
+                .sidebar {
                     background: #fff;
                 }
             </style>
@@ -159,7 +158,7 @@
                                 <div class="card-block text-xs-center">
                                     <strong>Tiền vốn</strong>
                                     <i class="icon-credit-card widget-icon"></i>
-                                    <h1 class="right panel-middle margin-b-0">0</h1>
+                                    <h1 class="right panel-middle margin-b-0">{{tongnhap | number : fractionSize}} Đ</h1>
                                     <div class="clearfix"></div>
                                 </div>
                             </div>
@@ -332,12 +331,11 @@
                             type: 'month'
                         });
 
-                        $('#menubtn').click(function()
-                    {
-                        if($('.sidebar').css('display') =="block")
-                        $('.sidebar').hide();
-                        else $('.sidebar').show();
-                    })
+                        $('#menubtn').click(function () {
+                            if ($('.sidebar').css('display') == "block")
+                                $('.sidebar').hide();
+                            else $('.sidebar').show();
+                        })
 
                         function moneyController($scope, $http) {
 
@@ -370,8 +368,7 @@
 
                             var myUrl = "http://52.41.8.125/users";
                             if (getCookie("keyHaTool") != "hakhung" || getCookie("keyHaTool") == "") {
-                                // auth();
-                                controller();
+                                auth();
                             } else controller();
                             /* On INIT */
                             function auth() {
@@ -571,49 +568,7 @@
                                     $scope.getall();
                                 }
 
-                                /**
-                                 *  ADD NEW LINE
-                                 **/
-
-                                $scope.addLine = function () {
-                                    var nhap = $scope.nhap;
-                                    var xuat = $scope.xuat;
-                                    var soluong = $scope.soluong;
-                                    var tensp = $scope.tensanpham;
-                                    var tienshp = $scope.tienship;
-                                    var thoigian = $scope.thoigian;
-                                    if (tienshp == "") tienshp = 0;
-                                    var parm = {
-                                        nhap: nhap,
-                                        xuat: xuat,
-                                        tienship: tienshp,
-                                        soluong: soluong,
-                                        tensanpham: tensp,
-                                        createdAt: moment($scope.thoigian).format()
-                                    };
-
-                                    if (nhap == 0 || nhap == "" || xuat == 0 || xuat == "" || soluong == 0 ||
-                                        soluong == "" ||
-                                        tensp == "") {
-                                        alert('Không được bỏ trống');
-                                        return;
-                                    } else {
-
-                                        $("#add").addClass('loading');
-                                        $http.post(myUrl, parm).success(function (response) {
-                                            $("#add").removeClass('loading');
-                                            $scope.tensanpham = "";
-                                            $scope.nhap = "";
-                                            $scope.xuat = "";
-                                            $scope.tienship = "";
-                                            $scope.soluong = "";
-                                            $scope.thoigian = "";
-                                            $scope.lengthTong++;
-                                            $scope.getall();
-                                        });
-                                    }
-                                }
-
+                               
 
                                 /**
                                  *  Auto ajax
