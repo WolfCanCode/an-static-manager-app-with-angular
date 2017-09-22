@@ -28,6 +28,13 @@ body {
     overflow-x: hidden;
     font-weight: 400;
 }
+body {
+    height: 103% !important;
+  }
+  .navbar {
+    align-items: baseline !important;
+    padding-left: 15px !important;
+  }
 .m-b {
     margin-bottom: 15px;
 }
@@ -128,10 +135,7 @@ a:focus, a:hover, a {
     float: left;
     color: #666;
 }
-.table-responsive {
-    min-height: .01%;
-    overflow-x: hidden;
-}
+
 .page-title.marginb0
 {
 	margin-bottom:0px;
@@ -698,7 +702,6 @@ body:not(.fixed-sidebar):not(.canvas-menu).mini-navbar .nav-second-level {
 	    box-shadow: 0 0px 5px 0 rgba(0,0,0,0.16), 0 0px 5px 0 rgba(0,0,0,0.12);
 }
 .sidebar-nav {
-background:#fff;
 }
 .sidebar-nav ul {
   padding: 0;
@@ -752,7 +755,13 @@ background:#fff;
     overflow-y: scroll;
     height: 100%;
 	    overflow-x: hidden;
-		    background: #fff;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(8px);
+}
+
+.navbar {
+    align-items: baseline !important;
+    padding-left: 15px !important;
 }
 .mini-navbar .sidebar{overflow: visible;} 
 }
@@ -781,7 +790,15 @@ display:none;
     overflow-y: scroll;
     height: 100%;
     overflow-x: hidden;
-    background: #364150;
+    background: rgba(255,255,255,0.8);
+    transition: all 1s;
+    left:-35%;
+}
+
+.sidebar-right
+{
+    display: block;
+    left:0 !important;
 }
 }
 .mini-navbar-show .sidebar

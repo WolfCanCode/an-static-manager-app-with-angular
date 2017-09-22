@@ -50,22 +50,17 @@
     <div id="wrapper" ng-controller="moneyController">
         <!-- BEGIN HEADER -->
         <div class="page-header navbar fixed-top">
-            <style>
-                .navbar {
-                    align-items: baseline !important;
-                    padding-left: 15px !important;
-                }
-
-                .sidebar {
-                    background: #fff;
-                }
-            </style>
             <!-- BEGIN HEADER INNER -->
             <div class="page-header-inner ">
                 <!-- BEGIN LOGO -->
-
+                
                 <div class="menu-toggler sidebar-toggler">
-                    <a href="javascript:;" id="menubtn" class="navbar-minimalize minimalize-styl-2  float-left "><i class="fa fa-bars"></i></a>
+                    <h2 style="font-size: 20px;
+                    float: right;
+                    margin-left: 25px;
+                    color: white;"> Hà Tools</h2>
+                    
+                  <a href="javascript:;" id="menubtn" class="navbar-minimalize minimalize-styl-2  float-left "><i class="fa fa-bars"></i></a>
                 </div>
 
                 <!-- END LOGO -->
@@ -173,7 +168,7 @@
                                 <!-- Start .panel -->
 
                                 <div class="card-block text-xs-center">
-                                    <strong>Sl</strong>
+                                    <strong>Đơn hàng</strong>
                                     <i class="icon-basket-loaded widget-icon"></i>
                                     <h1 class="right panel-middle margin-b-0">{{lengthTong}} cái</h1>
                                     <div class="clearfix"></div>
@@ -333,9 +328,16 @@
 
                         $('#menubtn').click(function () {
                             if ($('.sidebar').css('display') == "block")
-                                $('.sidebar').hide();
-                            else $('.sidebar').show();
+                            {
+                                $('.sidebar').removeClass('sidebar-right');
+                            } 
+                            else 
+                            {
+                                $('.sidebar').addClass('sidebar-right');
+                            }
                         })
+
+                        
 
                         function moneyController($scope, $http) {
 
