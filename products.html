@@ -52,11 +52,11 @@
       <div class="page-header-inner ">
         <!-- BEGIN LOGO -->
         <div class="menu-toggler sidebar-toggler">
-            <h2 style="font-size: 20px;
+          <h2 style="font-size: 20px;
             float: right;
             margin-left: 25px;
             color: white;"> Hà Tools</h2>
-            
+
           <a href="javascript:;" id="menubtn" class="navbar-minimalize minimalize-styl-2  float-left "><i class="fa fa-bars"></i></a>
         </div>
       </div>
@@ -197,6 +197,9 @@
       if ($('.sidebar').css('display') == "block")
         $('.sidebar').hide();
       else $('.sidebar').show();
+    })
+    $('.page-content-wrapper').click(function () {
+      $('.sidebar').removeClass('sidebar-right');
     })
 
     function moneyController($scope, $http) {
