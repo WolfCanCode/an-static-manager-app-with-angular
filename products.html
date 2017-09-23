@@ -194,10 +194,14 @@
     });
 
     $('#menubtn').click(function () {
-      if ($('.sidebar').css('display') == "block")
-        $('.sidebar').hide();
-      else $('.sidebar').show();
-    })
+      if ($('.sidebar').css('display') == "block") {
+          $('.sidebar').removeClass('sidebar-right');
+      }
+      else {
+          $('.sidebar').addClass('sidebar-right');
+      }
+  })
+  
     $('.page-content-wrapper').click(function () {
       $('.sidebar').removeClass('sidebar-right');
     })
