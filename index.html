@@ -53,14 +53,14 @@
             <!-- BEGIN HEADER INNER -->
             <div class="page-header-inner ">
                 <!-- BEGIN LOGO -->
-                
+
                 <div class="menu-toggler sidebar-toggler">
                     <h2 style="font-size: 20px;
                     float: right;
                     margin-left: 25px;
                     color: white;"> Hà Tools</h2>
-                    
-                  <a href="javascript:;" id="menubtn" class="navbar-minimalize minimalize-styl-2  float-left "><i class="fa fa-bars"></i></a>
+
+                    <a href="javascript:;" id="menubtn" class="navbar-minimalize minimalize-styl-2  float-left "><i class="fa fa-bars"></i></a>
                 </div>
 
                 <!-- END LOGO -->
@@ -327,22 +327,19 @@
                         });
 
                         $('#menubtn').click(function () {
-                            if ($('.sidebar').css('display') == "block")
-                            {
+                            if ($('.sidebar').css('display') == "block") {
                                 $('.sidebar').removeClass('sidebar-right');
-                            } 
-                            else 
-                            {
+                            }
+                            else {
                                 $('.sidebar').addClass('sidebar-right');
                             }
                         })
 
-                        $('.page-content-wrapper').click(function()
-                        {
+                        $('.page-content-wrapper').click(function () {
                             $('.sidebar').removeClass('sidebar-right');
                         })
 
-                        
+
 
                         function moneyController($scope, $http) {
 
@@ -486,7 +483,7 @@
                                     for (var i = 0; i < $scope.listTmp.length; i++) {
                                         $scope.lai += ($scope.listTmp[i].xuat * $scope.listTmp[i].soluong) - (
                                             $scope.listTmp[i]
-                                            .nhap *
+                                                .nhap *
                                             $scope.listTmp[
                                                 i].soluong) - $scope.listTmp[i].tienship;
                                         $scope.tongnhap += $scope.listTmp[i].nhap * $scope.listTmp[i].soluong;
@@ -527,12 +524,12 @@
                                             });
                                     } else {
                                         $http.get(myUrl + '?skip=' + page * 15 + '&sort=createdAt DESC&limit=15' + "&" +
-                                                $scope.condition)
+                                            $scope.condition)
                                             .success(
-                                                function (
-                                                    response) { //skip == page
-                                                    $scope.list = response;
-                                                });
+                                            function (
+                                                response) { //skip == page
+                                                $scope.list = response;
+                                            });
                                     }
 
                                     for (var i = 0; i <= $scope.sopage + 1; i++) {
@@ -575,7 +572,7 @@
                                     $scope.getall();
                                 }
 
-                               
+
 
                                 /**
                                  *  Auto ajax
@@ -608,7 +605,7 @@
                                         for (var i = 0; i < $scope.listTmp.length; i++) {
                                             $scope.lai += ($scope.listTmp[i].xuat * $scope.listTmp[i].soluong) -
                                                 ($scope.listTmp[
-                                                        i].nhap *
+                                                    i].nhap *
                                                     $scope.listTmp[
                                                         i].soluong) - $scope.listTmp[i].tienship;
                                             $scope.tongnhap += $scope.listTmp[i].nhap * $scope.listTmp[i].soluong;
@@ -647,18 +644,18 @@
                                         cancelButtonClass: 'ui red button',
                                         buttonsStyling: false
                                     }).then(function () {
-                                            $("#delete" + line.id).addClass("loading");
-                                            $http.delete(myUrl + '/' + line.id).success(function () {
-                                                swal(
-                                                    'Đã xóa!',
-                                                    'Đơn hàng đã bị xóa',
-                                                    'success'
-                                                )
-                                                $scope.getall();
-                                                $("#delete" + line.id).removeClass("loading");
-                                                $scope.lengthTong--;
-                                            });
-                                        },
+                                        $("#delete" + line.id).addClass("loading");
+                                        $http.delete(myUrl + '/' + line.id).success(function () {
+                                            swal(
+                                                'Đã xóa!',
+                                                'Đơn hàng đã bị xóa',
+                                                'success'
+                                            )
+                                            $scope.getall();
+                                            $("#delete" + line.id).removeClass("loading");
+                                            $scope.lengthTong--;
+                                        });
+                                    },
                                         function (dismiss) {
 
                                         })

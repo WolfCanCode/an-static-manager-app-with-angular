@@ -750,8 +750,7 @@ body:not(.fixed-sidebar):not(.canvas-menu).mini-navbar .nav-second-level {
 {
 .sidebar {
     width: 235px;
-
-	    position: fixed;
+	position: fixed;
     overflow-y: scroll;
     height: 100%;
 	    overflow-x: hidden;
@@ -791,6 +790,7 @@ display:none;
     height: 100%;
     overflow-x: hidden;
     background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(5px);
     transition: all 1s;
 }
 
