@@ -109,7 +109,7 @@
           <div class="col-sm-12">
             <div class="page-title">
 
-              <h4 class="float-left">Thêm đơn hàng</h4>
+              <h4 class="float-left">Thống kê hàng</h4>
 
 
             </div>
@@ -178,6 +178,7 @@
           <div class="ui green button" id="add" ng-click="addLine()">
             <i class="plus icon"></i> Add new
           </div>
+        </form>
       </div>
 
     </div>
@@ -190,7 +191,6 @@
 
     <!-- /PRELOADER -->
   </div>
-
   <script>
     $('#datetime').calendar();
     $('#month').calendar({
@@ -243,7 +243,8 @@
 
       var myUrl = "http://52.41.8.125/users";
       if (getCookie("keyHaTool") != "hakhung" || getCookie("keyHaTool") == "") {
-        auth();
+        //auth(); 
+        controller();
       } else controller();
       /* On INIT */
       function auth() {

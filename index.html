@@ -82,16 +82,18 @@
             <aside class="sidebar">
                 <nav class="sidebar-nav">
                     <ul class="metismenu" id="menu">
-                        <li class="active">
-                            <a href="/"><i class="icon-grid"></i> <span class="nav-label">Quản lý chung</span></a>
-
-
+                        <li class="">
+                          <a href="/"><i class="icon options"></i> <span class="nav-label">Quản lý chung</span></a>
+              
+              
                         </li>
                         <li class="">
-                            <a href="/products"><i class="icon-basket"></i> <span class="nav-label">Thêm đơn hàng</span></a>
+                          <a href="/products"><i class="icon shopping bag"></i> <span class="nav-label">Thêm đơn hàng</span></a>
                         </li>
-
-                    </ul>
+                        <li class="active">
+                          <a href="/result"><i class="icon industry"></i> <span class="nav-label">Thống kê hàng</span></a>
+                        </li>
+                      </ul>
                     <!-- END SIDEBAR MENU -->
                     <!-- END SIDEBAR MENU -->
                 </nav>
@@ -212,7 +214,9 @@
                                     <input type="text" placeholder="Tìm tên sản phẩm..." ng-model="keySearch" ng-keypress="$event.keyCode === 13 && search()">
                                     <i class="search link icon" ng-click="search()"></i>
                                 </div>
-
+                                <button class="ui compact icon button" ng-click="keySearch='';search()">
+                                    <i class="windows close icon"></i>
+                                  </button>
 
                                 <div class="card-block text-xs-center">
                                     <div class="table-responsive table-commerce">
@@ -326,17 +330,19 @@
                             type: 'month'
                         });
 
-                        $('#menubtn').click(function () {
-                            if ($('.sidebar').css('display') == "block") {
+                        $('.menu-toggler').click(function () {
+                            if ($('.sidebar').hasClass("sidebar-right")) {
                                 $('.sidebar').removeClass('sidebar-right');
-                            }
-                            else {
+                                $('.page-content-wrapper').removeClass('blur-backdrop');
+                            } else {
                                 $('.sidebar').addClass('sidebar-right');
+                                $('.page-content-wrapper').addClass('blur-backdrop');
                             }
                         })
 
                         $('.page-content-wrapper').click(function () {
                             $('.sidebar').removeClass('sidebar-right');
+                            $('.page-content-wrapper').removeClass('blur-backdrop');
                         })
 
 
@@ -483,7 +489,7 @@
                                     for (var i = 0; i < $scope.listTmp.length; i++) {
                                         $scope.lai += ($scope.listTmp[i].xuat * $scope.listTmp[i].soluong) - (
                                             $scope.listTmp[i]
-                                                .nhap *
+                                            .nhap *
                                             $scope.listTmp[
                                                 i].soluong) - $scope.listTmp[i].tienship;
                                         $scope.tongnhap += $scope.listTmp[i].nhap * $scope.listTmp[i].soluong;
@@ -524,12 +530,12 @@
                                             });
                                     } else {
                                         $http.get(myUrl + '?skip=' + page * 15 + '&sort=createdAt DESC&limit=15' + "&" +
-                                            $scope.condition)
+                                                $scope.condition)
                                             .success(
-                                            function (
-                                                response) { //skip == page
-                                                $scope.list = response;
-                                            });
+                                                function (
+                                                    response) { //skip == page
+                                                    $scope.list = response;
+                                                });
                                     }
 
                                     for (var i = 0; i <= $scope.sopage + 1; i++) {
@@ -605,7 +611,7 @@
                                         for (var i = 0; i < $scope.listTmp.length; i++) {
                                             $scope.lai += ($scope.listTmp[i].xuat * $scope.listTmp[i].soluong) -
                                                 ($scope.listTmp[
-                                                    i].nhap *
+                                                        i].nhap *
                                                     $scope.listTmp[
                                                         i].soluong) - $scope.listTmp[i].tienship;
                                             $scope.tongnhap += $scope.listTmp[i].nhap * $scope.listTmp[i].soluong;
@@ -632,7 +638,7 @@
 
                                 $scope.deleteLine = function (line) {
                                     swal({
-                                        title: 'Cưng tính xóa cái ['+line.tensanpham+'] hả?',
+                                        title: 'Cưng tính xóa cái [' + line.tensanpham + '] hả?',
                                         text: "Chắc chưa cưng xóa là mất đó!",
                                         type: 'warning',
                                         showCancelButton: true,
@@ -644,18 +650,18 @@
                                         cancelButtonClass: 'ui red button',
                                         buttonsStyling: false
                                     }).then(function () {
-                                        $("#delete" + line.id).addClass("loading");
-                                        $http.delete(myUrl + '/' + line.id).success(function () {
-                                            swal(
-                                                'Đã xóa!',
-                                                'Đơn hàng đã bị xóa',
-                                                'success'
-                                            )
-                                            $scope.getall();
-                                            $("#delete" + line.id).removeClass("loading");
-                                            $scope.lengthTong--;
-                                        });
-                                    },
+                                            $("#delete" + line.id).addClass("loading");
+                                            $http.delete(myUrl + '/' + line.id).success(function () {
+                                                swal(
+                                                    'Đã xóa!',
+                                                    'Đơn hàng đã bị xóa',
+                                                    'success'
+                                                )
+                                                $scope.getall();
+                                                $("#delete" + line.id).removeClass("loading");
+                                                $scope.lengthTong--;
+                                            });
+                                        },
                                         function (dismiss) {
 
                                         })
@@ -665,6 +671,15 @@
                             }
                         }
                     </script>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <span class="footer-text left">ver 0.3</span>
+            <span class="footer-text right">Ha Tools application</span>
+        </div>
+
+    </div>
 
 </body>
 
