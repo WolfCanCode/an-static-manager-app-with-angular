@@ -114,7 +114,7 @@
                         </div>
                     </div>
                     <!-- end .page title-->
-                    <div class="row">
+                    <div class="row" >
                         <div class="col-md-6 col-lg-3">
                             <div class="panel panel-card recent-activites">
                                 <!-- Start .panel -->
@@ -214,11 +214,11 @@
                                     <input type="text" placeholder="Tìm tên sản phẩm..." ng-model="keySearch" ng-keypress="$event.keyCode === 13 && search()">
                                     <i class="search link icon" ng-click="search()"></i>
                                 </div>
-                                <button class="ui compact icon button" ng-click="keySearch='';search()">
+                                <button id="clearBtn" class="ui compact icon button"  ng-if="keySearch!='';" ng-click="clearSearch()">
                                     <i class="windows close icon"></i>
                                   </button>
 
-                                <div class="card-block text-xs-center">
+                                <div class=" text-xs-center">
                                     <div class="table-responsive table-commerce">
                                         <table class="table table-striped table-hover">
                                             <thead>
@@ -630,6 +630,17 @@
 
                                     });
 
+                                }
+
+
+                                /**
+                                *   CLEAR SEARCH
+                                **/
+
+                                $scope.clearSearch= function()
+                                {
+                                    $scope.keySearch='';
+                                    $scope.search();
                                 }
 
                                 /**
