@@ -3,10 +3,10 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>Quản lý vốn lãi của Hà</title>
+  <title>Hà Tools</title>
   <meta name="keywords" content="HTML5,CSS3,Admin Template" />
   <meta name="description" content="" />
-  <meta name="Author" content="Psd2allconversion [www.psd2allconversion.com]" />
+  <meta name="Author" content="HaTool" />
 
   <!-- mobile settings -->
   <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
@@ -20,10 +20,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
   <link href="assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-  <link href="assets/plugins/simple-line-icons-master/css/simple-line-icons.css" rel="stylesheet" type="text/css" />
-  <link href="assets/plugins/animate/animate.css" rel="stylesheet" type="text/css" />
   <link href="assets/plugins/ui/jquery-ui.css" rel="stylesheet">
-  <link rel="stylesheet" href="assets/plugins/toastr/toastr.min.css" />
   <!-- THEME CSS -->
   <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
   <link href="assets/css/theme/dark.css" rel="stylesheet" type="text/css" />
@@ -34,11 +31,13 @@
     rel="stylesheet" type="text/css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
-  <script src="https://cdn.rawgit.com/mdehoog/Semantic-UI-Calendar/76959c6f7d33a527b49be76789e984a0a407350b/dist/calendar.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
   <script src="assets/plugins/calendar/moment.min.js"></script>
-  <script src="assets/plugins/toastr/toastr.min.js"></script>
   <script src="assets/plugins/ui/jquery-ui.js"></script>
+  <script src="assets/js/jquery.canvasjs.min.js"></script>
+  <script src="assets/js/canvasjs.min.js"></script>
+
+
 
 </head>
 
@@ -117,7 +116,8 @@
         </div>
         <!-- end .page title-->
         <form class="ui form">
-          Đang thi công ...
+          <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+
         </form>
       </div>
 
@@ -132,11 +132,6 @@
     <!-- /PRELOADER -->
   </div>
   <script>
-    $('#datetime').calendar();
-    $('#month').calendar({
-      type: 'month'
-    });
-
     $('.menu-toggler').click(function () {
       if ($('.sidebar').hasClass("sidebar-right")) {
         $('.sidebar').removeClass('sidebar-right');
@@ -155,30 +150,7 @@
     function moneyController($scope, $http) {
 
       /* DECLARE */
-      $scope.nhap = "";
-      $scope.xuat = "";
-      $scope.soluong = "";
-      $scope.lengthTong = 0;
-      $scope.list = [];
-      $scope.listTmp = [];
-      $scope.curPage = 0;
-      $scope.lai = 0;
-      $scope.tongnhap = 0;
-      $scope.phantram = 0;
-      $scope.sopage = 0;
-      $scope.listpage = [];
-      $scope.tienship = "";
-      $scope.curItems = 0;
-      $scope.keySearch = "";
-      $scope.donhangthang = moment(new Date()).format().split("-")[1];
-      $scope.monthSearch = moment(new Date()).format().split("-")[0] + "-" +
-        moment(new Date()).format().split("-")[1]; // init month search
-      $("#monthYear").val($scope.monthSearch); //init month year
-      $scope.messagedata = "Không có dữ liệu";
-      $scope.tensanpham = "";
-      $scope.thoigian = "";
-      $scope.condition = 'where={"tensanpham":{"contains":"' + $scope.keySearch +
-        '"},"createdAt":{"contains":"' + $scope.monthSearch + '"}}';
+
 
 
       var myUrl = "http://52.41.8.125/users";
@@ -209,7 +181,7 @@
           swal({
             type: 'success',
             title: 'Mật khẩu xác nhận',
-            html: 'Chào mừng bạn đến với ứng dụng quản lý lãi vốn'
+            html: 'Chào mừng bạn đến với Hà Tools'
           });
           setCookie("keyHaTool", "hakhung", 365);
           controller();
@@ -246,103 +218,86 @@
         /**
          * On init
          **/
+        $scope.listItem = [];
+        $scope.sumPercentLai = 0;
 
-        $("#thoigian").focusout(function () {
-          $scope.thoigian = $("#thoigian").val();
+        $http.get(myUrl).success(function (response) {
+          for (var i = 0; i < response.length; i++) {
+            var lai = response[i].xuat - response[i].nhap -
+              (response[i].tienship / response[i].soluong);
+            response[i].percentLai = lai / response[i].nhap * 100;
+          }
+          $scope.listItem = response;
+
+          $scope.listItem.sort(function (a, b) {
+            return parseFloat(b.percentLai) - parseFloat(a.percentLai);
+          })
+
+          for (var i = 0; i < 5; i++) {
+            $scope.sumPercentLai += $scope.listItem[i].percentLai;
+          }
+          console.log($scope.listItem);
+          //chart
+          moment.locale();
+          var chart = new CanvasJS.Chart("chartContainer", {
+            theme: "light2", // "light1", "light2", "dark1", "dark2"
+            exportEnabled: true,
+            animationEnabled: true,
+            title: {
+              text: "Top 5 đơn hàng bán lời nhất"
+            },
+            data: [{
+              type: "pie",
+              startAngle: 25,
+              toolTipContent: "<b>{label}</b>: {y}%",
+              showInLegend: "true",
+              legendText: "{label}",
+              indexLabelFontSize: 16,
+              indexLabel: "{label} - {y}%",
+              dataPoints: [{
+                  y: Math.round(($scope.listItem[0].percentLai / $scope.sumPercentLai * 100) * 100) / 100,
+                  label: $scope.listItem[0].tensanpham + ' (' + moment($scope.listItem[0].createdAt).format(
+                    'L') + ')'
+                },
+                {
+                  y: Math.round(($scope.listItem[1].percentLai / $scope.sumPercentLai * 100) * 100) / 100,
+                  label: $scope.listItem[1].tensanpham + ' (' + moment($scope.listItem[1].createdAt).format(
+                    'L') + ')'
+                },
+                {
+                  y: Math.round(($scope.listItem[2].percentLai / $scope.sumPercentLai * 100) * 100) / 100,
+                  label: $scope.listItem[2].tensanpham + ' (' + moment($scope.listItem[2].createdAt).format(
+                    'L') + ')'
+                },
+                {
+                  y: Math.round(($scope.listItem[3].percentLai / $scope.sumPercentLai * 100) * 100) / 100,
+                  label: $scope.listItem[3].tensanpham + ' (' + moment($scope.listItem[3].createdAt).format(
+                    'L') + ')'
+                },
+                {
+                  y: Math.round(($scope.listItem[4].percentLai / $scope.sumPercentLai * 100) * 100) / 100,
+                  label: $scope.listItem[4].tensanpham + ' (' + moment($scope.listItem[4].createdAt).format(
+                    'L') + ')'
+                }
+              ]
+            }]
+          });
+          chart.render();
+
+
         });
 
-        $("#monthYear").focusout(function () {
-          $scope.monthSearch = convertMonthYear();
-          console.log($scope.monthSearch);
-        });
-
-        function convertMonthYear() {
-          var token = $("#monthYear").val().split(" ");
-          if (token[0] === "January") {
-            token[0] = "01";
-          } else if (token[0] === "February") {
-            token[0] = "02";
-          } else if (token[0] === "March") {
-            token[0] = "03";
-          } else if (token[0] === "April") {
-            token[0] = "04";
-          } else if (token[0] === "May") {
-            token[0] = "05";
-          } else if (token[0] === "June") {
-            token[0] = "06";
-          } else if (token[0] === "July") {
-            token[0] = "07";
-          } else if (token[0] === "August") {
-            token[0] = "08";
-          } else if (token[0] === "September") {
-            token[0] = "09";
-          } else if (token[0] === "October") {
-            token[0] = "10";
-          } else if (token[0] === "November") {
-            token[0] = "11";
-          } else if (token[0] === "December") {
-            token[0] = "12";
-          }
-          $scope.donhangthang = token[0];
-          return token[1] + "-" + token[0];
-        }
 
 
 
-        $scope.isEnter = function (event) //Enter to search
-        {
-          if (keyEvent.which === 13)
-            $scope.search();
-        }
 
-        /**
-         *  ADD NEW LINE
-         **/
-
-        $scope.addLine = function () {
-          var nhap = $scope.nhap;
-          var xuat = $scope.xuat;
-          var soluong = $scope.soluong;
-          var tensp = $scope.tensanpham;
-          var tienshp = $scope.tienship;
-          var thoigian = $scope.thoigian;
-          if (tienshp == "") tienshp = 0;
-          var parm = {
-            nhap: nhap,
-            xuat: xuat,
-            tienship: tienshp,
-            soluong: soluong,
-            tensanpham: tensp,
-            createdAt: moment($scope.thoigian).format()
-          };
-
-          if (nhap == 0 || nhap == "" || xuat == 0 || xuat == "" || soluong == 0 ||
-            soluong == "" ||
-            tensp == "") {
-            alert('Không được bỏ trống');
-            return;
-          } else {
-
-            $("#add").addClass('loading');
-            $http.post(myUrl, parm).success(function (response) {
-              toastr.success('Thêm mới một đơn hàng thành công');
-              $("#add").removeClass('loading');
-              $scope.tensanpham = "";
-              $scope.nhap = "";
-              $scope.xuat = "";
-              $scope.tienship = "";
-              $scope.soluong = "";
-              $scope.thoigian = "";
-            });
-          }
-        }
       }
     }
   </script>
-<div class="footer">
-  <span class="footer-text left">ver 0.3</span>
-  <span class="footer-text right">Ha Tools application</span>
-</div>
+  <div class="footer">
+    <span class="footer-text left">ver 0.3</span>
+    <span class="footer-text right">Ha Tools application</span>
+  </div>
 </body>
 
 </html>
