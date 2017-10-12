@@ -57,7 +57,9 @@
             margin-left: 25px;
             color: white;"> Hà Tools</h2>
 
-          <a href="javascript:;" id="menubtn" class="navbar-minimalize minimalize-styl-2  float-left "><i class="fa fa-bars"></i></a>
+          <a href="javascript:;" id="menubtn" class="navbar-minimalize minimalize-styl-2  float-left ">
+            <i class="fa fa-bars"></i>
+          </a>
         </div>
       </div>
       <!-- END LOGO -->
@@ -85,15 +87,24 @@
       <nav class="sidebar-nav">
         <ul class="metismenu" id="menu">
           <li class="">
-            <a href="/"><i class="icon options"></i> <span class="nav-label">Quản lý chung</span></a>
+            <a href="/">
+              <i class="icon options"></i>
+              <span class="nav-label">Quản lý chung</span>
+            </a>
 
 
           </li>
           <li class="">
-            <a href="/products"><i class="icon shopping bag"></i> <span class="nav-label">Thêm đơn hàng</span></a>
+            <a href="/products">
+              <i class="icon shopping bag"></i>
+              <span class="nav-label">Thêm đơn hàng</span>
+            </a>
           </li>
           <li class="active">
-            <a href="/result"><i class="icon industry"></i> <span class="nav-label">Thống kê hàng</span></a>
+            <a href="/result">
+              <i class="icon industry"></i>
+              <span class="nav-label">Thống kê hàng</span>
+            </a>
           </li>
         </ul>
         <!-- END SIDEBAR MENU -->
@@ -306,6 +317,7 @@
          * On init
          **/
 
+
         $("#thoigian").focusout(function () {
           $scope.thoigian = $("#thoigian").val();
         });
@@ -366,13 +378,17 @@
           var tienshp = $scope.tienship;
           var thoigian = $scope.thoigian;
           if (tienshp == "") tienshp = 0;
+          if (thoigian == "") {
+            thoigian = null;
+          }
+          else thoigian =  moment($scope.thoigian).format();
           var parm = {
             nhap: nhap,
             xuat: xuat,
             tienship: tienshp,
             soluong: soluong,
             tensanpham: tensp,
-            createdAt: moment($scope.thoigian).format()
+            createdAt: thoigian
           };
 
           if (nhap == 0 || nhap == "" || xuat == 0 || xuat == "" || soluong == 0 ||
@@ -398,10 +414,10 @@
       }
     }
   </script>
-<div class="footer">
-  <span class="footer-text left">ver 0.3</span>
-  <span class="footer-text right">Ha Tools application</span>
-</div>
+  <div class="footer">
+    <span class="footer-text left">ver 0.3</span>
+    <span class="footer-text right">Ha Tools application</span>
+  </div>
 </body>
 
 </html>
