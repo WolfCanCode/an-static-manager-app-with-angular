@@ -60,7 +60,9 @@
                     margin-left: 25px;
                     color: white;"> Hà Tools</h2>
 
-                    <a href="javascript:;" id="menubtn" class="navbar-minimalize minimalize-styl-2  float-left "><i class="fa fa-bars"></i></a>
+                    <a href="javascript:;" id="menubtn" class="navbar-minimalize minimalize-styl-2  float-left ">
+                        <i class="fa fa-bars"></i>
+                    </a>
                 </div>
 
                 <!-- END LOGO -->
@@ -83,17 +85,26 @@
                 <nav class="sidebar-nav">
                     <ul class="metismenu" id="menu">
                         <li class="">
-                          <a href="/"><i class="icon options"></i> <span class="nav-label">Quản lý chung</span></a>
-              
-              
+                            <a href="/">
+                                <i class="icon options"></i>
+                                <span class="nav-label">Quản lý chung</span>
+                            </a>
+
+
                         </li>
                         <li class="">
-                          <a href="/products"><i class="icon shopping bag"></i> <span class="nav-label">Thêm đơn hàng</span></a>
+                            <a href="/products">
+                                <i class="icon shopping bag"></i>
+                                <span class="nav-label">Thêm đơn hàng</span>
+                            </a>
                         </li>
                         <li class="active">
-                          <a href="/result"><i class="icon industry"></i> <span class="nav-label">Thống kê hàng</span></a>
+                            <a href="/result">
+                                <i class="icon industry"></i>
+                                <span class="nav-label">Thống kê hàng</span>
+                            </a>
                         </li>
-                      </ul>
+                    </ul>
                     <!-- END SIDEBAR MENU -->
                     <!-- END SIDEBAR MENU -->
                 </nav>
@@ -114,7 +125,7 @@
                         </div>
                     </div>
                     <!-- end .page title-->
-                    <div class="row" >
+                    <div class="row">
                         <div class="col-md-6 col-lg-3">
                             <div class="panel panel-card recent-activites">
                                 <!-- Start .panel -->
@@ -214,9 +225,9 @@
                                     <input type="text" placeholder="Tìm tên sản phẩm..." ng-model="keySearch" ng-keypress="$event.keyCode === 13 && search()">
                                     <i class="search link icon" ng-click="search()"></i>
                                 </div>
-                                <button id="clearBtn" class="ui compact icon button"  ng-if="keySearch!='';" ng-click="clearSearch()">
+                                <button id="clearBtn" class="ui compact icon button" ng-if="keySearch!='';" ng-click="clearSearch()">
                                     <i class="windows close icon"></i>
-                                  </button>
+                                </button>
 
                                 <div class=" text-xs-center">
                                     <div class="table-responsive table-commerce">
@@ -277,7 +288,7 @@
                                                     <td class="text-xs-center">
                                                         <button class="negative ui button" ng-click="deleteLine(line)" id="delete{{line.id}}">
                                                             Xóa
-                                                            </button>
+                                                        </button>
                                                     </td>
 
                                                 </tr>
@@ -288,12 +299,12 @@
                                                     <th colspan="3">
                                                         <div class="ui left floated pagination menu">
                                                             <a class="icon item" ng-click="prevPage()">
-                                              <i class="left chevron icon"></i>
-                                            </a>
+                                                                <i class="left chevron icon"></i>
+                                                            </a>
                                                             <a class="item" ng-repeat="page in listpage" ng-click="onPage(page-1)" id="page{{page}}">{{page}}</a>
                                                             <a class="icon item" ng-click="nextPage()">
-                                              <i class="right chevron icon"></i>
-                                            </a>
+                                                                <i class="right chevron icon"></i>
+                                                            </a>
                                                         </div>
                                                     </th>
                                                 </tr>
@@ -405,7 +416,7 @@
                                         title: 'Mật khẩu xác nhận',
                                         html: 'Chào mừng bạn đến với ứng dụng quản lý lãi vốn'
                                     });
-                                    setCookie("keyHaTool", "hakhung", 365);
+                                    setCookie("keyHaTool", "hakhung", 1);
                                     controller();
                                 }, function (dismiss) {
                                     auth();
@@ -440,7 +451,7 @@
                                 /**
                                  * On init
                                  **/
-
+                                setCookie("keyHaTool", "hakhung", 1);
                                 $("#thoigian").focusout(function () {
                                     $scope.thoigian = $("#thoigian").val();
                                 });
@@ -489,7 +500,7 @@
                                     for (var i = 0; i < $scope.listTmp.length; i++) {
                                         $scope.lai += ($scope.listTmp[i].xuat * $scope.listTmp[i].soluong) - (
                                             $scope.listTmp[i]
-                                            .nhap *
+                                                .nhap *
                                             $scope.listTmp[
                                                 i].soluong) - $scope.listTmp[i].tienship;
                                         $scope.tongnhap += $scope.listTmp[i].nhap * $scope.listTmp[i].soluong;
@@ -530,12 +541,12 @@
                                             });
                                     } else {
                                         $http.get(myUrl + '?skip=' + page * 15 + '&sort=createdAt DESC&limit=15' + "&" +
-                                                $scope.condition)
+                                            $scope.condition)
                                             .success(
-                                                function (
-                                                    response) { //skip == page
-                                                    $scope.list = response;
-                                                });
+                                            function (
+                                                response) { //skip == page
+                                                $scope.list = response;
+                                            });
                                     }
 
                                     for (var i = 0; i <= $scope.sopage + 1; i++) {
@@ -611,7 +622,7 @@
                                         for (var i = 0; i < $scope.listTmp.length; i++) {
                                             $scope.lai += ($scope.listTmp[i].xuat * $scope.listTmp[i].soluong) -
                                                 ($scope.listTmp[
-                                                        i].nhap *
+                                                    i].nhap *
                                                     $scope.listTmp[
                                                         i].soluong) - $scope.listTmp[i].tienship;
                                             $scope.tongnhap += $scope.listTmp[i].nhap * $scope.listTmp[i].soluong;
@@ -637,9 +648,8 @@
                                 *   CLEAR SEARCH
                                 **/
 
-                                $scope.clearSearch= function()
-                                {
-                                    $scope.keySearch='';
+                                $scope.clearSearch = function () {
+                                    $scope.keySearch = '';
                                     $scope.search();
                                 }
 
@@ -661,18 +671,18 @@
                                         cancelButtonClass: 'ui red button',
                                         buttonsStyling: false
                                     }).then(function () {
-                                            $("#delete" + line.id).addClass("loading");
-                                            $http.delete(myUrl + '/' + line.id).success(function () {
-                                                swal(
-                                                    'Đã xóa!',
-                                                    'Đơn hàng đã bị xóa',
-                                                    'success'
-                                                )
-                                                $scope.getall();
-                                                $("#delete" + line.id).removeClass("loading");
-                                                $scope.lengthTong--;
-                                            });
-                                        },
+                                        $("#delete" + line.id).addClass("loading");
+                                        $http.delete(myUrl + '/' + line.id).success(function () {
+                                            swal(
+                                                'Đã xóa!',
+                                                'Đơn hàng đã bị xóa',
+                                                'success'
+                                            )
+                                            $scope.getall();
+                                            $("#delete" + line.id).removeClass("loading");
+                                            $scope.lengthTong--;
+                                        });
+                                    },
                                         function (dismiss) {
 
                                         })
