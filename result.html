@@ -183,7 +183,7 @@
             title: 'Mật khẩu xác nhận',
             html: 'Chào mừng bạn đến với Hà Tools'
           });
-          setCookie("keyHaTool", "hakhung", 365);
+          setCookie("keyHaTool", "hakhung", 1);
           controller();
         }, function (dismiss) {
           auth();
@@ -218,6 +218,7 @@
         /**
          * On init
          **/
+         setCookie("keyHaTool", "hakhung", 1);
         $scope.listItem = [];
         $scope.sumPercentLai = 0;
 
