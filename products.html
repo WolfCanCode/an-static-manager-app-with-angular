@@ -257,6 +257,7 @@
         auth();
       } else controller();
       /* On INIT */
+      setCookie("keyHaTool", "hakhung", 1);
       function auth() {
         swal({
           title: 'Đăng nhập',
@@ -281,7 +282,7 @@
             title: 'Mật khẩu xác nhận',
             html: 'Chào mừng bạn đến với ứng dụng quản lý lãi vốn'
           });
-          setCookie("keyHaTool", "hakhung", 365);
+          setCookie("keyHaTool", "hakhung", 1);
           controller();
         }, function (dismiss) {
           auth();
